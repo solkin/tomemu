@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+
+# NetBeans folders #
+build/
+dist/
