@@ -2,11 +2,13 @@ package com.tomclaw.utils.bb;
 
 import com.tomclaw.tcuilite.smiles.SmileLink;
 import com.tomclaw.tcuilite.smiles.Smiles;
+
 import javax.microedition.lcdui.Graphics;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2012
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Solkin
  */
 public class BBStyleString {
@@ -26,8 +28,17 @@ public class BBStyleString {
             g.drawString(string, x + local_x, y + local_y, Graphics.TOP | Graphics.LEFT);
         } else if (smileLink != null) {
             smileLink.updateLocation(x + local_x, y + local_y);
-            g.drawImage(Smiles.smiles[smileLink.smileIndex].getFrameARGB(smileLink.frameIndex), smileLink.x, smileLink.y, Graphics.TOP | Graphics.LEFT);
+            Smiles.smiles[smileLink.smileIndex].paint(g, smileLink.x, smileLink.y, smileLink.frameIndex);
             smileLink.analyzeFrame();
         }
+    }
+
+    public BBStyleString trim() {
+        /** Checking for string is not null **/
+        if (string != null) {
+            /** Trimming string **/
+            string = string.trim();
+        }
+        return this;
     }
 }

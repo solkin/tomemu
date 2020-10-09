@@ -5,10 +5,10 @@
 package javax.microedition.lcdui.game;
 
 /**
- *
  * @author Solkin
  */
 public class Sprite {
 
-  public static final int TRANS_NONE = 0x00;
+    public static final int TRANS_NONE = 0x00;
+
 }

@@ -4,19 +4,21 @@ import java.io.ByteArrayOutputStream;
 import java.util.Vector;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2010
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
- * @author Игорь
+ *
+ * @author Solkin
  */
 public class TransUtil {
-    //Allocation Util
+
+    // Allocation Util
     public final static int BYTE_ARRAY_SIZE_MAX = 10240 - 1;
 
     public static byte[] createByteArray(int size) {
         return new byte[size];
     }
 
-    //Log util
+    // Log util
     public static String toString_Hex0xAndDec(int word) {
         return HexUtil.toHexString0x(word) + " (" + (word & 0xFFFF) + ")";
     }
@@ -37,13 +39,12 @@ public class TransUtil {
         }
         return bytes.toByteArray();
     }
-    
-    static public byte[] explodeToBytes(String text) {
-        byte[] bytes = new byte[text.length()/2];
 
-        for(int c=0;c<bytes.length;c++){
+    static public byte[] explodeToBytes(String text) {
+        byte[] bytes = new byte[text.length() / 2];
+        for (int c = 0; c < bytes.length; c++) {
             // Logger.outMessage(text.substring(c*2, (c+1)*2));
-            bytes[c] = (byte)Integer.parseInt(text.substring(c*2, (c+1)*2), 16);
+            bytes[c] = (byte) Integer.parseInt(text.substring(c * 2, (c + 1) * 2), 16);
         }
         return bytes;
     }

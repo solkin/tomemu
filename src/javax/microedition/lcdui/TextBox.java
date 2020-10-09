@@ -5,12 +5,12 @@ public class TextBox extends Displayable {
     //private Form form;
     //private TextField textField;
 
-    public void addCommand(Command command){
+    public void addCommand(Command command) {
 
     }
 
     public void setCommandListener(CommandListener cl) {
-        
+
     }
 
     public TextBox(String title, String text, int maxSize, int constraints) {
@@ -59,6 +59,11 @@ public class TextBox extends Displayable {
     }
 
     public int setMaxSize(int maxSize) {
+        //compiled code
+        return 0;//throw new RuntimeException("Compiled Code");
+    }
+
+    public int size() {
         //compiled code
         return 0;//throw new RuntimeException("Compiled Code");
     }
@@ -142,9 +147,4 @@ public class TextBox extends Displayable {
         //compiled code
         // throw new RuntimeException("Compiled Code");
     }
-
-  @Override
-  protected void paint ( Graphics g ) {
-    throw new UnsupportedOperationException ( "Not supported yet." );
-  }
 }

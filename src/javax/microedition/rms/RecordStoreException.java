@@ -1,14 +1,16 @@
 package javax.microedition.rms;
 
+import utils.Logger;
+
 public class RecordStoreException extends Exception {
 
     public RecordStoreException(String message) {
         //compiled code
-        System.out.println("Compiled Code");
+        Logger.println("Compiled Code");
     }
 
     public RecordStoreException() {
         //compiled code
-        System.out.println("Compiled Code");
+        Logger.println("Compiled Code");
     }
 }

@@ -1,5 +1,7 @@
 package javax.microedition.lcdui;
 
+import utils.Logger;
+
 import java.util.Hashtable;
 
 public final class Font {
@@ -29,70 +31,60 @@ public final class Font {
 
     public static Font getFont(int fontSpecifier) {
         //compiled code
-        System.out.println("Compiled Code");
+        Logger.println("Compiled Code");
         return null;
     }
 
     private Font(int face, int style, int size) {
-        font = new java.awt.Font("Dialog", style, size);
+        this.style = style;
+        this.size = size;
+        font = new java.awt.Font("Verdana", style, size);
     }
 
     public static Font getDefaultFont() {
-        //compiled code
         return DEFAULT_FONT;
     }
 
     public static Font getFont(int face, int style, int size) {
-        //compiled code
         return new Font(face, style, size);
     }
 
     public int getStyle() {
-        //compiled code
         return style;
     }
 
     public int getSize() {
-        //compiled code
         return size;
     }
 
     public int getFace() {
-        //compiled code
         return face;
     }
 
     public boolean isPlain() {
         //compiled code
-        System.out.println("Compiled Code");
-        return (style==STYLE_PLAIN);
+        Logger.println("Compiled Code");
+        return true;
     }
 
     public boolean isBold() {
-        //compiled code
         return font.isBold();
     }
 
     public boolean isItalic() {
-        //compiled code
-        return font.isItalic();
+        return false;
     }
 
     public boolean isUnderlined() {
-        //compiled code
-        System.out.println("Compiled Code");
-        return (style == Font.STYLE_UNDERLINED);
+        return font.isItalic();
     }
 
     public int getHeight() {
-        //compiled code
-        return g.getFontMetrics(font).getHeight()*3/2;
+        return g.getFontMetrics(font).getHeight() * 3 / 2;
     }
 
     public int getBaselinePosition() {
-        //compiled code
-        System.out.println("Compiled Code");
-        return g.getFontMetrics(font).getAscent()*3/2;
+        return g.getFontMetrics(font).getAscent() * 3 / 2;
     }
 
     public int charWidth(char ch) {
@@ -104,7 +96,7 @@ public final class Font {
     }
 
     public int stringWidth(String str) {
-        return g.getFontMetrics(font).stringWidth(str)*3/2;
+        return g.getFontMetrics(font).stringWidth(str) * 3 / 2;
     }
 
     public int substringWidth(String str, int offset, int len) {

@@ -5,8 +5,9 @@ import java.util.Random;
 import java.util.Vector;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2010
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Игорь
  */
 public class DataUtil {
@@ -97,7 +98,7 @@ public class DataUtil {
         return 2;
     }
 
-//i += put16(newrx.data, i, 0x01);
+    //i += put16(newrx.data, i, 0x01);
     public static int put32(byte[] buf, int offset, long a) {
         buf[offset] = (byte) ((a >> 24) & 0xff);
         buf[++offset] = (byte) ((a >> 16) & 0xff);
@@ -114,7 +115,8 @@ public class DataUtil {
         return 4;
     }
 
-    public static void putArray_reversed(byte[] buf, int offset, byte[] array) {
+    public static void putArray_reversed(byte[] buf, int offset,
+                                         byte[] array) {
         for (int c = offset; c < array.length + offset; c++) {
             buf[c] = array[array.length - 1 - (c - offset)];
         }
@@ -163,8 +165,8 @@ public class DataUtil {
     }
 
     public static int aim_puttlv_str_(byte buf[], final int offset,
-            int tlv_type,
-            byte[] stringAsByteArray) {
+                                      int tlv_type,
+                                      byte[] stringAsByteArray) {
         int delta = 0;
         delta += put16(buf, offset + delta, tlv_type);
         delta += put16(buf, offset + delta, stringAsByteArray.length);
@@ -181,15 +183,14 @@ public class DataUtil {
     public static int get8int(byte[] buf, int offset) {
         return ((buf[offset])) & 0xff;
     }
-    
+
     public static byte get8(byte[] buf, int offset) {
-        return (byte)(((buf[offset])) & 0xff);
+        return (byte) (((buf[offset])) & 0xff);
     }
 
     /*public static int get8(byte[] buf, int offset) {
-        return ((int) (buf[offset])) & 0xff;
-    }*/
-
+     return ((int) (buf[offset])) & 0xff;
+     }*/
     public static int get16(byte[] buf, int offset) {
         int val;
         val = (buf[offset] << 8) & 0xff00;
@@ -266,7 +267,8 @@ public class DataUtil {
     public static String getMetaString(int offset, byte data[]) {
         String metaString;
         int length = get16_reversed(data, offset);
-        metaString = new String(data).substring(offset + 2, offset + 2 + length - 1);
+        metaString = new String(data).substring(offset + 2,
+                offset + 2 + length - 1);
         metaString += " ";
         offset += length;
         return metaString;
@@ -279,7 +281,8 @@ public class DataUtil {
         }
     }
 
-    static public byte[] byteStringToBytes(String text, char separator, int radix) {
+    static public byte[] byteStringToBytes(String text, char separator,
+                                           int radix) {
         String[] strings = explode(text, separator);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         String item;

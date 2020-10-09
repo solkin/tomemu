@@ -4,13 +4,15 @@ import com.tomclaw.tcuilite.Settings;
 import com.tomclaw.tcuilite.Theme;
 import com.tomclaw.tcuilite.smiles.SmileLink;
 import com.tomclaw.tcuilite.smiles.Smiles;
+
+import javax.microedition.lcdui.Font;
 import java.util.Stack;
 import java.util.Vector;
-import javax.microedition.lcdui.Font;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2012
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Solkin
  */
 public class BBUtil {
@@ -37,32 +39,33 @@ public class BBUtil {
     private static String printText;
     private static SmileLink smileLink;
     public static String[][] colors = new String[][]{
-        {"red", "FF0000"},
-        {"white", "FFFFFF"},
-        {"cyan", "00FFFF"},
-        {"silver", "C0C0C0"},
-        {"blue", "0000FF"},
-        {"grey", "808080"},
-        {"dark_blue", "0000A0"},
-        {"black", "000000"},
-        {"light_purple", "FF0080"},
-        {"orange", "FFA500"},
-        {"purple", "800080"},
-        {"brown", "A52A2A"},
-        {"yellow", "FFFF00"},
-        {"maroon", "800000"},
-        {"lime", "00FF00"},
-        {"green", "008000"},
-        {"fuchsia", "FF00FF"},
-        {"olive", "808000"}
+            {"red", "FF0000"},
+            {"white", "FFFFFF"},
+            {"cyan", "00FFFF"},
+            {"silver", "C0C0C0"},
+            {"blue", "0000FF"},
+            {"grey", "808080"},
+            {"dark_blue", "0000A0"},
+            {"black", "000000"},
+            {"light_purple", "FF0080"},
+            {"orange", "FFA500"},
+            {"purple", "800080"},
+            {"brown", "A52A2A"},
+            {"yellow", "FFFF00"},
+            {"maroon", "800000"},
+            {"lime", "00FF00"},
+            {"green", "008000"},
+            {"fuchsia", "FF00FF"},
+            {"olive", "808000"}
     };
     private static Vector styledStrings = new Vector();
 
-    public static BBResult processText(String text, int x, int y, int width) throws Throwable {
+    public static BBResult processText(String text, int x, int y, int width,
+                                       int baseColor) throws Throwable {
         BBResult bbResult = new BBResult();
         bbResult.originalString = new String();
         styledStrings.removeAllElements();
-        style = new BBStyle(Theme.font);
+        style = new BBStyle(Theme.font, baseColor);
         if (Settings.BB_FORMATTING_ENABLED) {
             if (elements == null) {
                 elements = new Stack();
@@ -102,7 +105,6 @@ public class BBUtil {
                 if (ch == ']') {
                     if (is_TagClosing && Settings.BB_FORMATTING_ENABLED) {
                         elements.pop();
-                        // System.out.println("was: " + tag);
                         if (!elements.empty()) {
                             style = (BBStyle) elements.lastElement();
                         }
@@ -118,9 +120,9 @@ public class BBUtil {
                             styleString.style = style;
                             styleString.smileLink = smileLink;
                             if (x + local_x + smileLink.getWidth() > width) {
-                                /** 
-                                 * Смайлик не умещается на строке, 
-                                 * нужно сперва осуществить перенос. 
+                                /**
+                                 * Смайлик не умещается на строке,
+                                 * нужно сперва осуществить перенос.
                                  */
                                 local_x = 0;
                                 total_height += line_height;
@@ -128,7 +130,7 @@ public class BBUtil {
                             }
                             styleString.local_x = x + local_x;
                             styleString.local_y = y + total_height;
-                            styledStrings.addElement(styleString);
+                            styledStrings.addElement(styleString.trim());
                             bbResult.originalString += Smiles.smiles[smileLink.smileIndex].getSmileDefinitions()[0];
                             if (smileLink.getHeight() > line_height) {
                                 line_height = smileLink.getHeight();
@@ -140,8 +142,11 @@ public class BBUtil {
                             style = processTag(tag, value, style);
                             elements.push(style);
                         } catch (UnsupportedTagException ex) {
+                            /**
+                             * This exception may occur
+                             * because of incorrect tag format
+                             **/
                         }
-                        // System.out.println("now: " + tag + " value = " + value);
                     }
                     line_height = detectHeight(style, line_height);
                     tag = "";
@@ -169,20 +174,19 @@ public class BBUtil {
             isOverflow = x + local_x + line_width > width;
             isTagStart = (ch == '[' && !is_PrevChSlash);
             if ((isOverflow || isTagStart) && !(buffer.length() == 0) || c == length) {
-                // System.out.println(buffer + ": " + breakpoint);
                 if (isOverflow && breakpoint > 0) {
                     printText = buffer.substring(0, breakpoint);
                     buffer = buffer.substring(breakpoint);
                 } else if (isOverflow && breakpoint == 0 && local_x == 0) {
-                    /** 
-                     * Начало новой строки, а слово не умещается 
+                    /**
+                     * Начало новой строки, а слово не умещается
                      * целиком. Нужно вывести сколько можно
                      */
                     printText = buffer;
                     buffer = "";
                 } else if (isOverflow && breakpoint == 0) {
                     /*
-                     * Либо слово на всю строку и не было ни одного прерывания, 
+                     * Либо слово на всю строку и не было ни одного прерывания,
                      * либо смена тега. Ничего не печатаем.
                      */
                     printText = "";
@@ -195,7 +199,7 @@ public class BBUtil {
                 styleString.string = printText;
                 styleString.local_x = x + local_x;
                 styleString.local_y = y + total_height;
-                styledStrings.addElement(styleString);
+                styledStrings.addElement(styleString.trim());
                 bbResult.originalString += printText;
 
                 local_x += style.font.stringWidth(printText);
@@ -228,6 +232,15 @@ public class BBUtil {
         return bbResult;
     }
 
+    /**
+     * Supported tags here
+     *
+     * @param tag
+     * @param value
+     * @param t_style
+     * @return
+     * @throws Throwable
+     */
     private static BBStyle processTag(String tag, String value, BBStyle t_style) throws Throwable {
         BBStyle bbStyle = t_style.clone();
         if (tag.equals("b")) {

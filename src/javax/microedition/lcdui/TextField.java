@@ -84,6 +84,7 @@ public class TextField extends Item {
             throw new RuntimeException("Compiled Code");
         }
     }
+
     public static final int ANY = 0;
     public static final int EMAILADDR = 1;
     public static final int NUMERIC = 2;

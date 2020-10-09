@@ -6,7 +6,6 @@
 package javax.microedition.rms;
 
 /**
- *
  * @author solkin
  */
 public class RecordListener {

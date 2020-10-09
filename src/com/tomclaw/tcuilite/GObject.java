@@ -3,39 +3,57 @@ package com.tomclaw.tcuilite;
 import javax.microedition.lcdui.Graphics;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2012
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Solkin
  */
-public interface GObject {
+public abstract class GObject {
 
-  public void repaint( Graphics g );
+    public int x, y, width, height;
 
-  public void repaint( Graphics g, int paintX, int paintY );
+    public void setLocation(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-  public void setLocation( int x, int y );
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
 
-  public void setSize( int width, int height );
+    public int getX() {
+        return x;
+    }
 
-  public void keyPressed( int keyCode );
+    public int getY() {
+        return y;
+    }
 
-  public void keyReleased( int keyCode );
+    public int getWidth() {
+        return width;
+    }
 
-  public void keyRepeated( int keyCode );
+    public int getHeight() {
+        return height;
+    }
 
-  public void pointerPressed( int x, int y );
+    public void setTouchOrientation(boolean touchOrientation) {
+    }
 
-  public void pointerReleased( int x, int y );
+    public abstract void repaint(Graphics g);
 
-  public boolean pointerDragged( int x, int y );
+    public abstract void repaint(Graphics g, int paintX, int paintY);
 
-  public int getX();
+    public abstract void keyPressed(int keyCode);
 
-  public int getY();
+    public abstract void keyReleased(int keyCode);
 
-  public int getWidth();
+    public abstract void keyRepeated(int keyCode);
 
-  public int getHeight();
+    public abstract void pointerPressed(int x, int y);
 
-  public void setTouchOrientation( boolean touchOrientation );
+    public abstract void pointerReleased(int x, int y);
+
+    public abstract boolean pointerDragged(int x, int y);
 }

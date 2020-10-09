@@ -6,7 +6,6 @@
 package javax.microedition.lcdui;
 
 /**
- *
  * @author solkin
  */
 public interface CommandListener {

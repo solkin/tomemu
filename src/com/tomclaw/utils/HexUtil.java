@@ -6,6 +6,7 @@ import java.io.OutputStream;
 /**
  * Solkin Igor Viktorovich, TomClaw Software, 2003-2010
  * http://www.tomclaw.com/
+ *
  * @author Игорь
  */
 public class HexUtil {
@@ -36,30 +37,24 @@ public class HexUtil {
     }
 
     public static void dump_(OutputStream os, byte[] data, String linePrefix,
-            int lenToPrint) {
+                             int lenToPrint) {
         if (!isLoggerEnabled) {
             return;
         }
-        int length = data.length;
         StringBuffer sb = new StringBuffer();
         try {
             sb.append(("\r\n" + linePrefix));
-            int printed = 0;
-            int printedThisLine = 0;
-            int lineStart = 0;
-            int actuallyPrinted = 0;
-            //int lenToPrint = length;
+            int printed = 0, printedThisLine = 0, lineStart = 0, actuallyPrinted = 0;
             if (lenToPrint > data.length) {
                 lenToPrint = data.length;
             }
-            //int len3 = lenToPrint;
-            //if ((len3 & 15) > 0)
-            //len3 = (len3 & 0xFFFFFFF0) + 16;
             while (printed < lenToPrint) {
                 if (((printedThisLine & 3) == 0) && (printedThisLine > 0)) {
                     sb.append("  ");
                 }
-                sb.append(((printed >= lenToPrint ? "  " : pad_(Integer.toHexString(data[printed] & 0xff), 2)).toLowerCase() + " "));
+                sb.append(((printed >= lenToPrint ? "  " : pad_(
+                        Integer.toHexString(data[printed] & 0xff), 2))
+                        .toLowerCase() + " "));
                 printed++;
                 printedThisLine++;
                 if (printed < lenToPrint) {
@@ -79,20 +74,17 @@ public class HexUtil {
             }
         } catch (Exception e) {
             sb.append("\r\n");
-            //Logger.printException(e);
         }
         try {
             LogUtil.outMessage(sb.toString());
             os.write(sb.append("\r\n").toString().getBytes());
         } catch (IOException ex) {
-            //Logger.printException(ex);
         }
     }
 
     private static void dumpChars(StringBuffer sb, byte[] data, int lineStart,
-            int maxLen) {
-        int printed = lineStart;
-        int printedThisLine = 0;
+                                  int maxLen) {
+        int printed = lineStart, printedThisLine = 0;
         sb.append("\"");
         while (printed < data.length && printedThisLine <= maxLen) {
             if (((printedThisLine & 7) == 0) && (printedThisLine > 0)) {
@@ -112,9 +104,10 @@ public class HexUtil {
     /**
      * Insert the method's description here.
      * Creation date: (03.12.99 11:26:13)
-     * @return java.lang.String
-     * @param str java.lang.String
+     *
+     * @param str                   java.lang.String
      * @param resultingStringLength int
+     * @return java.lang.String
      */
     private static String pad_(String str, int resultingStringLength) {
         StringBuffer buf = new StringBuffer();
@@ -129,7 +122,7 @@ public class HexUtil {
     }
 
     public static String toHexString(long n, long mask,
-            int resultingStringLength) {
+                                     int resultingStringLength) {
         return pad_(Long.toString(n & mask), resultingStringLength);
     }
 
@@ -138,7 +131,7 @@ public class HexUtil {
     }
 
     public static String toHexString0x(long n, long mask,
-            int resultingDigitStringLengthWithout0x) {
+                                       int resultingDigitStringLengthWithout0x) {
         return "0x" + toHexString(n, mask, resultingDigitStringLengthWithout0x);
     }
 
@@ -153,8 +146,8 @@ public class HexUtil {
     public static byte[] stringToBytes(String string) {
         byte[] data = new byte[string.length() / 2];
         for (int c = 0; c < string.length(); c += 2) {
-            // LogUtil.outMessage(c/2+") " + string.substring(c, c + 2));
-            data[c / 2] = (byte) Integer.parseInt(string.substring(c, c + 2), 16);
+            data[c / 2] =
+                    (byte) Integer.parseInt(string.substring(c, c + 2), 16);
         }
         return data;
     }

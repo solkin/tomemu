@@ -21,23 +21,20 @@
  *  See the LGPL or the AL for the specific language governing permissions and
  *  limitations.
  */
- 
+
 package javax.microedition.midlet;
 
 
-public class MIDletStateChangeException extends Exception
-{
+public class MIDletStateChangeException extends Exception {
 
 
-	public MIDletStateChangeException()
-	{
-		super();
-	}
+    public MIDletStateChangeException() {
+        super();
+    }
 
 
-	public MIDletStateChangeException(String s)
-	{
-		super(s);
-	}
+    public MIDletStateChangeException(String s) {
+        super(s);
+    }
 
 }

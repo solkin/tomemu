@@ -1,11 +1,12 @@
 package com.tomclaw.utils;
 
-import java.util.Hashtable;
 import javax.microedition.lcdui.Font;
+import java.util.Hashtable;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2012
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Solkin
  */
 public class FontUtil {

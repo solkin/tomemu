@@ -1,14 +1,17 @@
 package com.tomclaw.tcuilite.smiles;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2012
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
+ *
  * @author Solkin
  */
 public class SmileLink {
 
     public int smileIndex = -1;
-    /** Variables **/
+    /**
+     * Variables
+     **/
     public int x, y;
     public int frameIndex = 0;
     public int backColor = 0xFFFFFF;

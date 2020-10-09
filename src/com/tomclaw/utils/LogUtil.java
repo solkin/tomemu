@@ -2,14 +2,15 @@ package com.tomclaw.utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
-/*import javax.microedition.io.Connector;
-import javax.microedition.io.SocketConnection;
-import javax.microedition.io.file.FileConnection;*/
+//import javax.microedition.io.Connector;
+//import javax.microedition.io.SocketConnection;
+//import javax.microedition.io.file.FileConnection;
 
 /**
- * Solkin Igor Viktorovich, TomClaw Software, 2003-2010
+ * Solkin Igor Viktorovich, TomClaw Software, 2003-2013
  * http://www.tomclaw.com/
- * @author Игорь
+ *
+ * @author Solkin
  */
 public final class LogUtil {
 
@@ -23,7 +24,8 @@ public final class LogUtil {
     public static long startTime = 0;
     public static boolean isShowMessages = true;
 
-    public static void initLogger(boolean isOutToCons, boolean isOutToSock, String host, int port, boolean isOutToFile, String filePath) {
+    public static void initLogger(boolean isOutToCons, boolean isOutToSock,
+                                  String host, int port, boolean isOutToFile, String filePath) {
         LogUtil.isOutToCons = isOutToCons;
         LogUtil.isOutToFile = isOutToFile;
         LogUtil.isOutToSock = isOutToSock;
@@ -53,20 +55,23 @@ public final class LogUtil {
     public static void outMessage(String logMessage) {
         outMessage(logMessage, false);
     }
-    
+
     public static void outMessage(Class clazz, Throwable ex) {
-        outMessage(clazz.getName() + " :: "+ex.toString() + " [ " + ex.getMessage() +" ]", true);
+        outMessage(clazz.getName() + " :: " + ex.toString() + " [ "
+                + ex.getMessage() + " ]", true);
     }
-    
+
     public static void outMessage(Throwable ex) {
         outMessage(ex.toString() + " : " + ex.getMessage(), true);
     }
 
     public static void outMessage(String logMessage, boolean isError) {
-        if(isShowMessages){
+        if (isShowMessages) {
             logMessage = "[" + Runtime.getRuntime().freeMemory() / 1024 + " KiB / "
-                    + Runtime.getRuntime().totalMemory() / 1024 + " KiB] (" + (System.currentTimeMillis() - startTime) + " fs-ms.) " + (isError ? "[ERR] " : "") + logMessage;
-            outSystem(logMessage+"\n");
+                    + Runtime.getRuntime().totalMemory() / 1024 + " KiB] ("
+                    + (System.currentTimeMillis() - startTime) + " fs-ms.) "
+                    + (isError ? "[ERR] " : "") + logMessage;
+            outSystem(logMessage + "\n");
         }
     }
 
@@ -83,26 +88,30 @@ public final class LogUtil {
     }
 
     public static OutputStream[] getOutputStreams() {
-        return new OutputStream[]{fileOutputStream, sockOutputStream, consOutputStream};
+        return new OutputStream[]{fileOutputStream, sockOutputStream,
+                consOutputStream};
     }
 
     private static void openFileConnection() throws IOException {
-        /*String fileName = "file://" + filePath + "mnd_" + System.currentTimeMillis() + ".log";
-        FileConnection fileConnection = (FileConnection) Connector.open(fileName, 3);
-        if (!((FileConnection) (fileConnection)).exists()) {
-            (fileConnection).create();
-        }
-        fileOutputStream = fileConnection.openOutputStream();*/
+        String fileName = "file://" + filePath + "logutil_"
+                + System.currentTimeMillis() + ".log";
+//    FileConnection fileConnection =
+//            ( FileConnection ) Connector.open( fileName, 3 );
+//    if ( !( ( FileConnection ) ( fileConnection ) ).exists() ) {
+//      ( fileConnection ).create();
+//    }
+//    fileOutputStream = fileConnection.openOutputStream();
     }
 
     private static void openConsConnection() throws IOException {
         consOutputStream = System.out;
     }
 
-    private static void openSockConnection(String host, int port) throws IOException {
-        /*SocketConnection socket = (SocketConnection) Connector.open("socket://" + host + ":" + port,
-                Connector.READ_WRITE);
-        sockOutputStream = socket.openOutputStream();*/
+    private static void openSockConnection(String host, int port)
+            throws IOException {
+//    SocketConnection socket = ( SocketConnection ) Connector.open(
+//            "socket://" + host + ":" + port, Connector.READ_WRITE );
+//    sockOutputStream = socket.openOutputStream();
     }
 
     private static void write(OutputStream outputStream, String logMessage) {
