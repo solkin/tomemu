@@ -5,6 +5,7 @@
 *.war
 *.ear
 
-# NetBeans folders #
+# IDE folders #
 build/
 dist/
+out/
