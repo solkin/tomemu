@@ -8,6 +8,11 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,62 +88,81 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridLayout(4, 3, 2, 2));
 
         jButton1.setText("1");
+        jButton1.addActionListener(e -> emulateKeyPressed(49));
         jPanel2.add(jButton1);
 
         jButton2.setText("2");
+        jButton2.addActionListener(e -> emulateKeyPressed(50));
         jPanel2.add(jButton2);
 
         jButton3.setText("3");
+        jButton3.addActionListener(e -> emulateKeyPressed(51));
         jPanel2.add(jButton3);
 
         jButton4.setText("4");
+        jButton4.addActionListener(e -> emulateKeyPressed(52));
         jPanel2.add(jButton4);
 
         jButton5.setText("5");
+        jButton5.addActionListener(e -> emulateKeyPressed(53));
         jPanel2.add(jButton5);
 
         jButton6.setText("6");
+        jButton6.addActionListener(e -> emulateKeyPressed(54));
         jPanel2.add(jButton6);
 
         jButton7.setText("7");
+        jButton7.addActionListener(e -> emulateKeyPressed(55));
         jPanel2.add(jButton7);
 
         jButton8.setText("8");
+        jButton8.addActionListener(e -> emulateKeyPressed(56));
         jPanel2.add(jButton8);
 
         jButton9.setText("9");
+        jButton9.addActionListener(e -> emulateKeyPressed(57));
         jPanel2.add(jButton9);
 
         jButton10.setText("*");
+        jButton10.addActionListener(e -> emulateKeyPressed(42));
         jPanel2.add(jButton10);
 
         jButton11.setText("0");
+        jButton11.addActionListener(e -> emulateKeyPressed(48));
         jPanel2.add(jButton11);
 
         jButton12.setText("#");
+        jButton12.addActionListener(e -> emulateKeyPressed(35));
         jPanel2.add(jButton12);
 
         jPanel3.setLayout(new java.awt.BorderLayout(2, 2));
+        jButton13.setText("o");
+        jButton13.addActionListener(e -> emulateKeyPressed(8));
         jPanel3.add(jButton13, java.awt.BorderLayout.CENTER);
 
         jButton14.setText("<");
+        jButton14.addActionListener(e -> emulateKeyPressed(2));
         jPanel3.add(jButton14, java.awt.BorderLayout.LINE_START);
 
         jButton15.setText(">");
+        jButton15.addActionListener(e -> emulateKeyPressed(5));
         jPanel3.add(jButton15, java.awt.BorderLayout.LINE_END);
 
         jButton16.setText("^");
+        jButton16.addActionListener(e -> emulateKeyPressed(1));
         jPanel3.add(jButton16, java.awt.BorderLayout.PAGE_START);
 
         jButton17.setText("v");
+        jButton17.addActionListener(e -> emulateKeyPressed(6));
         jPanel3.add(jButton17, java.awt.BorderLayout.PAGE_END);
 
         jPanel4.setLayout(new java.awt.BorderLayout());
-
         jButton18.setText("Left");
+        jButton18.addActionListener(e -> emulateKeyPressed(1000001));
         jPanel4.add(jButton18, java.awt.BorderLayout.LINE_START);
 
         jButton19.setText("Right");
+        jButton19.addActionListener(e -> emulateKeyPressed(1000002));
         jPanel4.add(jButton19, java.awt.BorderLayout.LINE_END);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,6 +191,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void emulateKeyPressed(int keyCode) {
+        Display.keyPressed(keyCode);
+        Display.keyReleased(keyCode);
+    }
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         Display.pointerPressed(evt.getX(), evt.getY());
